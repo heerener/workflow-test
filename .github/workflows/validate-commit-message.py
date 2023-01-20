@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# requires: gitpython
+
 import os
 
 from git import Repo
@@ -15,9 +17,10 @@ for spack_repo in ['./var/spack/repos/builder.test',
                    './var/spack/repos/tutorial',
                    './bluebrain/repo-bluebrain',
                    './bluebrain/repo-patches']:
-    existing_packages.extend(os.walk(f'{spack_repo}/packages'))
+    existing_packages.extend(next(os.walk(f'{spack_repo}/packages'))[1])
 
 print(existing_packages)
+
 faulty_commits = []
 for commit in repo.iter_commits():
     if len(commit.parents) > 1:
