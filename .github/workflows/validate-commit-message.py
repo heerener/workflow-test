@@ -17,6 +17,7 @@ for spack_repo in ['./var/spack/repos/builder.test',
                    './bluebrain/repo-patches']:
     existing_packages.extend(os.walk(f'{spack_repo}/packages'))
 
+print(existing_packages)
 faulty_commits = []
 for commit in repo.iter_commits():
     if len(commit.parents) > 1:
