@@ -17,6 +17,6 @@ jobs:
       - name: Validate commit messages
         run: |
           echo "Deepening shallow clone to ${{ github.event.pull_request.commits }} commits"
-          git fetch --depth=${{ github.event.pull_request.commits }}
+          git fetch --deepen=$((${{ github.event.pull_request.commits }} - 1))
           pip install gitpython
           python ./.github/workflows/validate-commit-message.py
