@@ -22,13 +22,16 @@ jobs:
           echo "PR number is ${{ github.event.pull_request.number }}"
           git fetch --deepen=$((${{ github.event.pull_request.commits }} - 1))
           pip install gitpython
-          python ./.github/workflows/validate-commit-message.py || true
-          echo "<<<<<<<<<<<<<<<<<<<<<<"
-          cat faulty_commits.txt
-          echo ">>>>>>>>>>>>>>>>>>>>>>"
+          python ./.github/workflows/validate-commit-message.py
 
       - name: Add comment to PR
         uses: thollander/actions-comment-pull-request@v2
         with:
           filePath: faulty_commits.txt
         if: ${{ steps.commit-message-validator.outputs.faulty-commits }}=true
+
+      - name: Fail the action
+        if: ${{ steps.commit-message-validator.outputs.faulty-commits }}=true
+        run: |
+          echo "Faulty commit messages found - failing"
+          exit 1
