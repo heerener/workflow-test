@@ -32,7 +32,7 @@ for commit in repo.iter_commits():
 
     package = commit.message.splitlines()[0].split(':')[0]
     if package.strip() not in existing_packages and package not in keywords:
-        quoted_commit_message = '\n'.join([f'> {line} for line in commit.message.splitlines()'])
+        quoted_commit_message = '\n'.join([f'> {line}' for line in commit.message.splitlines()])
         msg = f'### {commit.hexsha}\n'
         msg += f'{quoted_commit_message}\n\n'
         msg += f'Commit message does not follow the required template.\n'
