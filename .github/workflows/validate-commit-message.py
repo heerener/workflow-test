@@ -34,7 +34,7 @@ for commit in repo.iter_commits():
     if package.strip() not in existing_packages and package not in keywords:
         msg = f'Commit {commit.hexsha} message "{commit.message.rstrip()}" does not follow the required template.\n'
         msg += f'"{package}" is not a known package or one of {keywords}\n'
-        msg += 'Please reformat your commit message to start with either a package name, '
+        msg += 'Please amend your commit message to start with either a package name, '
         msg += f'or one of {keywords} followed by a ":"\n'
         msg += 30 * '='
         faulty_commits.append(msg)
