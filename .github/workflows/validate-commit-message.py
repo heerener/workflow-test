@@ -7,11 +7,6 @@ from git import Repo
 keywords = ['nopackage', 'deploy']
 
 repo = Repo('.')
-commit_packages = []
-
-for commit in repo.iter_commits():
-    commit_packages.append((commit.hexsha, commit.message.split(':')[0]))
-# package = repo.head.commit.message.split(':')[0]
 
 existing_packages = []
 for spack_repo in ['./var/spack/repos/builder.test',
@@ -23,10 +18,10 @@ for spack_repo in ['./var/spack/repos/builder.test',
     existing_packages.extend(os.walk(f'{spack_repo}/packages'))
 
 faulty_commits = []
-for commit_info in commit_packages:
-    sha, package = commit_info
+for commit in repo.iter_commits():
+    package = commit.message.split(':')[0]
     if package.strip() not in existing_packages and package not in keywords:
-        msg = f'Commit {sha} message "{repo.head.commit.message.rstrip()}" does not follow the required template.\n'
+        msg = f'Commit {commit.hexsha} message "{commit.message.rstrip()}" does not follow the required template.\n'
         msg += f'"{package}" is not a known package or one of {keywords}\n'
         msg += 'Please reformat your commit message to start with either a package name, '
         msg += f'or one of {keywords} followed by a :\n'
