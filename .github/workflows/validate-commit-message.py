@@ -19,6 +19,10 @@ for spack_repo in ['./var/spack/repos/builder.test',
 
 faulty_commits = []
 for commit in repo.iter_commits():
+    if len(commit.parents) > 1:
+        print('Not going beyond a merge commit')
+        break
+
     package = commit.message.split(':')[0]
     if package.strip() not in existing_packages and package not in keywords:
         msg = f'Commit {commit.hexsha} message "{commit.message.rstrip()}" does not follow the required template.\n'
