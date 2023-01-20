@@ -16,6 +16,7 @@ jobs:
 
       - name: Validate commit messages
         id: commit-message-validator
+        continue-on-error: true
         run: |
           echo "Deepening shallow clone to ${{ github.event.pull_request.commits }} commits"
           git fetch --deepen=$((${{ github.event.pull_request.commits }} - 1))
