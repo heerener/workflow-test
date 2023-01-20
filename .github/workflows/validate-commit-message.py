@@ -32,4 +32,5 @@ for commit_info in commit_packages:
         msg += f'or one of {keywords} followed by a :'
         faulty_commits.append(msg)
 
-raise ValueError('\n'.join(faulty_commits))
+if faulty_commits:
+    raise ValueError('\n'.join(faulty_commits))
