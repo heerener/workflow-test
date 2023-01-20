@@ -26,7 +26,7 @@ faulty_commits = []
 for commit_info in commit_packages:
     sha, package = commit_info
     if package.strip() not in existing_packages and package not in keywords:
-        msg = f'Commit {sha} message "{repo.head.commit.message}" does not follow the required template.\n'
+        msg = f'Commit {sha} message "{repo.head.commit.message.rstrip()}" does not follow the required template.\n'
         msg += f'"{package}" is not a known package or one of {keywords}\n'
         msg += 'Please reformat your commit message to start with either a package name, '
         msg += f'or one of {keywords} followed by a :'
