@@ -30,6 +30,7 @@ for commit_info in commit_packages:
         msg += f'"{package}" is not a known package or one of {keywords}\n'
         msg += 'Please reformat your commit message to start with either a package name, '
         msg += f'or one of {keywords} followed by a :'
+        msg += 30 * '='
         faulty_commits.append(msg)
 
 if faulty_commits:
