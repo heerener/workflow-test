@@ -32,11 +32,12 @@ for commit in repo.iter_commits():
 
     package = commit.message.splitlines()[0].split(':')[0]
     if package.strip() not in existing_packages and package not in keywords:
-        msg = f'Commit {commit.hexsha} message "{commit.message.rstrip()}" does not follow the required template.\n'
+        msg = f'### {commit.hexsha}'
+        msg += f'{commit.message.rstrip()}\n\n'
+        msg += f'Commit message does not follow the required template.\n'
         msg += f'"{package}" is not a known package or one of {keywords}\n'
         msg += 'Please amend your commit message to start with either a package name, '
         msg += f'or one of {keywords} followed by a ":"\n'
-        msg += 30 * '='
         faulty_commits.append(msg)
 
 if faulty_commits:
@@ -44,4 +45,3 @@ if faulty_commits:
         fp.write(msg)
     with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
         fp.write("faulty-commits=true")
-    raise ValueError('\n'.join(faulty_commits))
