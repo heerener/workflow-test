@@ -4,16 +4,17 @@ on:
   pull_request:
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+  validate-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Validate commit messages
-      run: |
-        pip install gitpython
-        python ./.github/workflows/validate-commit-message.py
+      - name: Validate commit messages
+        run: |
+          pip install gitpython
+          python ./.github/workflows/validate-commit-message.py
