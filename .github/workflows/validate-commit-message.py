@@ -40,4 +40,8 @@ for commit in repo.iter_commits():
         faulty_commits.append(msg)
 
 if faulty_commits:
+    with open('faulty_commits.txt', 'w') as fp:
+        fp.write(msg)
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
+        fp.write("faulty-commits=true")
     raise ValueError('\n'.join(faulty_commits))
