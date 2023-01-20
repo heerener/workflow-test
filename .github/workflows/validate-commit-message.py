@@ -33,15 +33,15 @@ for commit in repo.iter_commits():
     package = commit.message.splitlines()[0].split(':')[0]
     if package.strip() not in existing_packages and package not in keywords:
         quoted_commit_message = '\n'.join([f'> {line}' for line in commit.message.splitlines()])
-        msg = f'### {commit.hexsha}\n'
-        msg += f'{quoted_commit_message}\n\n'
-        msg += f'Commit message does not follow the required template.\n'
-        msg += f'"{package}" is not a known package or one of {keywords}\n'
-        msg += 'Please amend your commit message to start with either a package name, '
-        msg += f'or one of {keywords} followed by a ":"\n'
+        msg = f'* {commit.hexsha}\n'
+        msg += f'{quoted_commit_message}'
         faulty_commits.append(msg)
 
 if faulty_commits:
+    warning = 'These commits are not formatted correctly. Please amend them to start with one of:\n'
+    warning += '* <package>: \n'
+    warning += f'* {", ".join(keywords)}'
+    faulty_commits.insert(0, warning)
     with open('faulty_commits.txt', 'w') as fp:
         fp.write('\n'.join(faulty_commits))
     with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
