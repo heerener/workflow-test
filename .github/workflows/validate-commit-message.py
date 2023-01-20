@@ -25,8 +25,7 @@ for spack_repo in ['./var/spack/repos/builder.test',
 
 faulty_commits = []
 for commit in repo.iter_commits():
-    print(f'Commit: {commit.message}')
-    print(f'{commit.parents}')
+    print(f'Commit: {commit.message} (parents: {commit.parents})')
     if len(commit.parents) > 1:
         print('Not going beyond a merge commit')
         break
