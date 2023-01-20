@@ -32,8 +32,9 @@ for commit in repo.iter_commits():
 
     package = commit.message.splitlines()[0].split(':')[0]
     if package.strip() not in existing_packages and package not in keywords:
-        msg = f'### {commit.hexsha}'
-        msg += f'{commit.message.rstrip()}\n\n'
+        quoted_commit_message = '\n'.join([f'> {line} for line in commit.message.splitlines()'])
+        msg = f'### {commit.hexsha}\n'
+        msg += f'{quoted_commit_message}\n\n'
         msg += f'Commit message does not follow the required template.\n'
         msg += f'"{package}" is not a known package or one of {keywords}\n'
         msg += 'Please amend your commit message to start with either a package name, '
