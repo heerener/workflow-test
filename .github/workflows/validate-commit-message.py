@@ -40,7 +40,7 @@ for commit in repo.iter_commits():
 if faulty_commits:
     warning = 'These commits are not formatted correctly. Please amend them to start with one of:\n'
     warning += '* \\<package>: \n'
-    warning += f'* {", ".join(keywords)}\n\n'
+    warning += f'* {", ".join(keyword + ":" for keyword in keywords)}\n\n'
     warning += "### Faulty commits:\n"
     faulty_commits.insert(0, warning)
     with open('faulty_commits.txt', 'w') as fp:
