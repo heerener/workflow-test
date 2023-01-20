@@ -17,7 +17,11 @@ for spack_repo in ['./var/spack/repos/builder.test',
                    './var/spack/repos/tutorial',
                    './bluebrain/repo-bluebrain',
                    './bluebrain/repo-patches']:
-    existing_packages.extend(next(os.walk(f'{spack_repo}/packages'))[1])
+    try:
+        existing_packages.extend(next(os.walk(f'{spack_repo}/packages'))[1])
+    except StopIteration:
+        print(f'No packages under {spack_repo}')
+        pass
 
 print(existing_packages)
 
