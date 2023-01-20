@@ -25,8 +25,7 @@ jobs:
           python ./.github/workflows/validate-commit-message.py
 
       - name: Add comment to PR
-        uses: peter-evans/create-or-update-comment@v2
+        uses: thollander/actions-comment-pull-request@v2
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body-file: faulty_commits.txt
+          filePath: faulty_commits.txt
         if: ${{ steps.commit-message-validator.outputs.faulty-commits }}=true
