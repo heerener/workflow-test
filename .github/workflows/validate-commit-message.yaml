@@ -24,8 +24,10 @@ jobs:
           pip install gitpython
           python ./.github/workflows/validate-commit-message.py || true
           if [ -e faulty_commits.txt ]; then
-              echo "faulty-commits=false" >> ${GITHUB_OUTPUT}
-            fi
+            echo "faulty-commits=true" >> ${GITHUB_OUTPUT}
+          else
+            echo "faulty-commits=false" >> ${GITHUB_OUTPUT}
+          fi
 
       - name: Show output
         run: |
