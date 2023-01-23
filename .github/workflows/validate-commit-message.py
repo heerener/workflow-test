@@ -48,5 +48,6 @@ if faulty_commits:
     with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
         fp.write("faulty-commits=true")
 else:
+    print(f'Adding to {os.environ["GITHUB_OUTPUT"]}')
     with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
         fp.write("faulty-commits=false")
