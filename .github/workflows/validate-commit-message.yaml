@@ -29,10 +29,10 @@ jobs:
         with:
           filePath: faulty_commits.txt
           reactions: eyes, confused, rocket
-        if: ${{ steps.commit-message-validator.outputs.faulty-commits }}=true
+        if: ${{ jobs.commit-message-validator.outputs.faulty-commits }}=true
 
       - name: Fail the action
-        if: ${{ steps.commit-message-validator.outputs.faulty-commits }}=true
+        if: ${{ jobs.commit-message-validator.outputs.faulty-commits }}=true
         run: |
           echo "Faulty commit messages found - failing"
           exit 1
