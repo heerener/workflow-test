@@ -31,7 +31,7 @@ def main(title):
     package = title.split(':')[0]
     if package.strip() not in existing_packages and package not in keywords:
         msg = f'* Merge Request Title\n'
-        msg += f'> {title}\n'
+        msg += f'> {title}\n\n'
         msg += 'Merge request title needs to be compliant as well, '
         msg += 'as it will be used for the merge/squash commit'
         faulty_commits.append(msg)
