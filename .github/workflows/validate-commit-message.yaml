@@ -24,15 +24,20 @@ jobs:
           pip install gitpython
           python ./.github/workflows/validate-commit-message.py
 
+      - name: Show output
+        run: |
+          echo "Output: ${GITHB_OUTPUT}"
+          echo "Output content: cat ${GITHUB_OUTPUT}"
+
       - name: Add comment to PR
         uses: thollander/actions-comment-pull-request@v2
         with:
           filePath: faulty_commits.txt
           reactions: eyes, confused, rocket
-        if: ${{ jobs.commit-message-validator.outputs.faulty-commits }}=true
+        if: ${{ steps.commit-message-validator.outputs.faulty-commits }}=true
 
       - name: Fail the action
-        if: ${{ jobs.commit-message-validator.outputs.faulty-commits }}=true
+        if: ${{ steps.commit-message-validator.outputs.faulty-commits }}=true
         run: |
           echo "Faulty commit messages found - failing"
           exit 1

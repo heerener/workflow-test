@@ -47,3 +47,6 @@ if faulty_commits:
         fp.write('\n'.join(faulty_commits))
     with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
         fp.write("faulty-commits=true")
+else:
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
+        fp.write("faulty-commits=false")
