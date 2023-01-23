@@ -26,8 +26,7 @@ jobs:
 
       - name: Show output
         run: |
-          echo "Output file: ${GITHUB_OUTPUT}"
-          cat ${GITHUB_OUTPUT}
+          echo "Output: ${{ steps.commit-message-validator.outputs.faulty-commits }}"
 
       - name: Add comment to PR
         uses: thollander/actions-comment-pull-request@v2
