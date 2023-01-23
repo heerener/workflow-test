@@ -34,7 +34,8 @@ jobs:
           echo "Output: ${{ steps.commit-message-validator.outputs.faulty-commits }}"
 
       - name: Add comment to PR
-        needs: commit-message-validator
+        needs:
+          - commit-message-validator
         if: ${{ needs.commit-message-validator.outputs.faulty-commits }} == true
         uses: thollander/actions-comment-pull-request@v2
         with:
@@ -42,7 +43,8 @@ jobs:
           reactions: eyes, confused, rocket
 
       - name: Fail the action
-        needs: commit-message-validator
+        needs:
+          - commit-message-validator
         if: ${{ needs.commit-message-validator.outputs.faulty-commits }} == true
         run: |
           echo "Faulty commit messages found - failing"
