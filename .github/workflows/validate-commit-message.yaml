@@ -26,6 +26,7 @@ jobs:
 
       - name: Show output
         run: |
+          echo "Output file: ${GITHUB_OUTPUT}"
           cat ${GITHUB_OUTPUT}
 
       - name: Add comment to PR
