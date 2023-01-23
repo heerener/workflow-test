@@ -24,9 +24,9 @@ jobs:
           pip install gitpython
           python ./.github/workflows/validate-commit-message.py || true
           if [ -e faulty_commits.txt ]; then
-            echo "faulty-commits=true" >> ${GITHUB_OUTPUT}
+            echo "faulty-commits=present" >> ${GITHUB_OUTPUT}
           else
-            echo "faulty-commits=false" >> ${GITHUB_OUTPUT}
+            echo "faulty-commits=absent" >> ${GITHUB_OUTPUT}
           fi
 
       - name: Show output
@@ -34,14 +34,14 @@ jobs:
           echo "Output: ${{ steps.commit-message-validator.outputs.faulty-commits }}"
 
       - name: Add comment to PR
-        if: "${{ steps.commit-message-validator.outputs.faulty-commits }} == true"
+        if: ${{ steps.commit-message-validator.outputs.faulty-commits }} == "present"
         uses: thollander/actions-comment-pull-request@v2
         with:
           filePath: faulty_commits.txt
           reactions: eyes, confused, rocket
 
       - name: Fail the action
-        if: "${{ steps.commit-message-validator.outputs.faulty-commits }} == true"
+        if: ${{ steps.commit-message-validator.outputs.faulty-commits }} == "present"
         run: |
           echo "Faulty commit messages found - failing"
           exit 1
