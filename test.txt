@@ -1,0 +1,2 @@
+Test text file with a line
+I liked that line! ANOTHER!
