@@ -1,0 +1,12 @@
+name: Test custom runner
+
+on:
+  pull_request:
+
+jobs:
+  test-custom-runner:
+    runs-on: knat
+    steps:
+      - name: Run a shell command
+        run: |
+          hostname
