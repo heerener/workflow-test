@@ -7,6 +7,11 @@ jobs:
   test-custom-runner:
     runs-on: bbp
     steps:
-      - name: Run a shell command
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Run a few shell commands
         run: |
           hostname
+          git status
+          ls
+          pwd
