@@ -12,10 +12,10 @@ jobs:
       - name: Run a few shell commands
         run: |
           date
+          echo Workspace is $GITHUB_WORKSPACE
           hostname
           git status
           date
-          sleep 10
           ls
           pwd
           date
