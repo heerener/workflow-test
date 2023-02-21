@@ -7,6 +7,9 @@ jobs:
   test-custom-runner:
     runs-on: bbp
     steps:
+      - name: Check the workspace content
+        run: |
+          find $GITHUB_WORKSPACE
       - name: Check out the repo
         uses: actions/checkout@v3
       - name: Run a few shell commands
