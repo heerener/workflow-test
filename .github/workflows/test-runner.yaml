@@ -22,3 +22,6 @@ jobs:
           ls
           pwd
           date
+      - name: Check the workspace content after doing stuff
+        run: |
+          find $GITHUB_WORKSPACE
