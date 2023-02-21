@@ -5,7 +5,7 @@ on:
 
 jobs:
   test-custom-runner:
-    runs-on: knat
+    runs-on: bbp
     steps:
       - name: Run a shell command
         run: |
